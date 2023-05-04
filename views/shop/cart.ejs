@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/cart.css">
+    </head>
+//We need to display items in cart
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <% if (products.length > 0) { %>        //We check if cart is empty
+                <ul class="cart__item-list">
+                    <% products.forEach(p => { %>
+                        <li class="cart__item">
+                            <h1><%= p.productData.title %></h1>
+                            <h2>Quantity: <%= p.qty %></h2>
+                            <form action="/cart-delete-item" method="POST">
+                                <input type="hidden" value="<%= p.productData.id %>" name="productId">     //We created a hidden id to hel[p us extract the item we want to delete   
+                                <button class="btn danger" type="submit">Delete</button>  //We create a delete btn to delete the item
+                            </form>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <h1>No Products in Cart!</h1>
+            <% } %>
+        </main>
+        <%- include('../includes/end.ejs') %>
